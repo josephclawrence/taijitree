@@ -53,7 +53,7 @@ export const pageQuery = graphql`
       nodes {
         name
         shortBio {
-          shortBio
+          raw
         }
         title
         heroImage: image {
