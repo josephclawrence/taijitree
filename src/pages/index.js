@@ -52,7 +52,9 @@ export const pageQuery = graphql`
     ) {
       nodes {
         name
-        shortBio
+        shortBio {
+          shortBio
+        }
         title
         heroImage: image {
           gatsbyImage(
