@@ -40,7 +40,7 @@ export const pageQuery = graphql`
           )
         }
         description {
-          description 
+          raw 
         }
       }
     }
