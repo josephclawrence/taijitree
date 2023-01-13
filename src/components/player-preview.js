@@ -26,7 +26,7 @@ const ArticlePreview = ({ players }) => {
               </div>
               <div className={styles.meta}>
                 <small className="meta">{}</small>
-                <Tags tags={player.tags} />
+                <Tags tags={player.associatedStyles} />
               </div>
             </li>
           )

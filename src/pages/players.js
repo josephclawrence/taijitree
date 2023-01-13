@@ -29,7 +29,7 @@ export const pageQuery = graphql`
       nodes {
         name
         slug
-        tags
+        associatedStyles
         mainImage {
           gatsbyImage(
             layout: FULL_WIDTH
