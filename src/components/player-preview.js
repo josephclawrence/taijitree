@@ -18,7 +18,6 @@ const ArticlePreview = ({ players }) => {
           return (
             <li key={player.slug}>
               <Link to={`/players/${player.slug}`} className={styles.link}>
-                <GatsbyImage alt="" image={player.mainImage.gatsbyImage} />
                 <h2 className={styles.title}>{player.name}</h2>
               </Link>
               <div>
@@ -26,7 +25,7 @@ const ArticlePreview = ({ players }) => {
               </div>
               <div className={styles.meta}>
                 <small className="meta">{}</small>
-                <Tags tags={player.associatedStyles} />
+                
               </div>
             </li>
           )
