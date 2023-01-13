@@ -25,7 +25,7 @@ export default PlayerIndex
 
 export const pageQuery = graphql`
   query PlayerIndexQuery {
-    allContentfulPlayer(sort: { fields: [publishDate], order: DESC }) {
+    allContentfulPlayer() {
       nodes {
         name
         slug
