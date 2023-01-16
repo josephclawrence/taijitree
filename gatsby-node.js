@@ -50,4 +50,55 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+
+  // Taiji players
+
+  // Define a template for blog post
+  const playersTemplate = path.resolve('./src/templates/player.js')
+
+  const playerResult = await graphql(
+    `
+      {
+        allContentfulPlayer {
+          nodes {
+            name
+            slug
+          }
+        }
+      }
+    `
+  )
+
+  if (playerResult.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your Contentful players`,
+      playerResult.errors
+    )
+    return
+  }
+
+  const players = playerResult.data.allContentfulPlayer.nodes
+
+  // Create blog players pages
+  // But only if there's at least one blog post found in Contentful
+  // `context` is available in the template as a prop and as a variable in GraphQL
+
+  if (players.length > 0) {
+    players.forEach((player, index) => {
+      const previousPlayerslug = index === 0 ? null : players[index - 1].slug
+      const nextPlayerslug =
+        index === players.length - 1 ? null : players[index + 1].slug
+
+      createPage({
+        path: `/players/${player.slug}/`,
+        component: playersTemplate,
+        context: {
+          slug: player.slug,
+          previousPlayerslug,
+          nextPlayerslug,
+        },
+      })
+    })
+  }
 }
