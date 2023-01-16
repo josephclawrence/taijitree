@@ -103,7 +103,6 @@ export const pageQuery = graphql`
       chineseName
       birthYear
       deathYear
-      rawDate: publishDate
       mainImage {
         gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
         resize(height: 630, width: 1200) {
