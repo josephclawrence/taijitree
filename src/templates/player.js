@@ -97,7 +97,7 @@ export const pageQuery = graphql`
     $previousPostSlug: String
     $nextPostSlug: String
   ) {
-    contentfulPlayerT(slug: { eq: $slug }) {
+    contentfulPlayer(slug: { eq: $slug }) {
       slug
       name
       chineseName
