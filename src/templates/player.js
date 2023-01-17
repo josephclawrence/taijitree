@@ -117,11 +117,11 @@ export const pageQuery = graphql`
       }
       wikipediaUrl
     }
-    previous: contentfulPlayer(slug: { eq: $previousPostSlug }) {
+    previous: contentfulPlayer(slug: { eq: $previousPlayerslug }) {
       slug
       name
     }
-    next: contentfulPlayer(slug: { eq: $nextPostSlug }) {
+    next: contentfulPlayer(slug: { eq: $nextPlayerslug }) {
       slug
       name
     }
