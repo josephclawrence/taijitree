@@ -87,8 +87,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   if (players.length > 0) {
     players.forEach((player, index) => {
       console.log(player.slug);
-      const previousPlayerslug = index === 0 ? null : players[index - 1].slug
-      const nextPlayerslug =
+      const previousPlayerSlug = index === 0 ? null : players[index - 1].slug
+      const nextPlayerSlug =
         index === players.length - 1 ? null : players[index + 1].slug
 
       createPage({
