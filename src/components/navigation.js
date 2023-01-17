@@ -25,6 +25,11 @@ const Navigation = () => (
           Players
         </Link>
       </li>
+      <li className={styles.navigationItem}>
+        <Link to="/tree/" activeClassName="active">
+          Tree
+        </Link>
+      </li>
     </ul>
   </nav>
 )
