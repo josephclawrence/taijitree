@@ -41,7 +41,7 @@ class PlayerTemplate extends React.Component {
         <Seo
           title={post.name}
           description={plainTextDescription}
-          image={`http:${post.mainImage.resize.src}`}
+          image={`http:${post.mainImage?.resize.src}`}
         />
         <Hero
           image={post.mainImage?.gatsbyImage}
@@ -99,6 +99,7 @@ export const pageQuery = graphql`
     contentfulPlayer(slug: { eq: $slug }) {
       slug
       name
+      associatedStyles
       chineseName
       birthYear
       deathYear
@@ -110,8 +111,7 @@ export const pageQuery = graphql`
       }
       longBio {
         raw
-      }
-      associatedStyles
+      }      
       shortBio {
         raw
       }
