@@ -93,8 +93,8 @@ export default PlayerTemplate
 export const pageQuery = graphql`
   query PlayerBySlug(
     $slug: String!
-    $previousPostSlug: String
-    $nextPostSlug: String
+    $previousPlayerSlug: String
+    $nextPlayerSlug: String
   ) {
     contentfulPlayer(slug: { eq: $slug }) {
       slug
@@ -117,11 +117,11 @@ export const pageQuery = graphql`
       }
       wikipediaUrl
     }
-    previous: contentfulPlayer(slug: { eq: $previousPlayerslug }) {
+    previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
       slug
       name
     }
-    next: contentfulPlayer(slug: { eq: $nextPlayerslug }) {
+    next: contentfulPlayer(slug: { eq: $nextPlayerSlug }) {
       slug
       name
     }

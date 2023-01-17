@@ -96,8 +96,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         component: playersTemplate,
         context: {
           slug: player.slug,
-          previousPlayerslug,
-          nextPlayerslug,
+          previousPlayerSlug,
+          nextPlayerSlug,
         },
       })
     })
