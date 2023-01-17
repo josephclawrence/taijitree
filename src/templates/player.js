@@ -19,9 +19,8 @@ class PlayerTemplate extends React.Component {
     const previous = get(this.props, 'data.previous')
     const next = get(this.props, 'data.next')
     const plainTextDescription = documentToPlainTextString(
-      JSON.parse(post.shortBio?.raw)
+      JSON.parse(post.shortBio && post.shortBio !== null && post.shortBio !== undefined ? post.shortBio?.raw : '')
     )
-    const plainTextBody = documentToPlainTextString(JSON.parse(post.longBio?.raw))
     
     const options = {
       renderNode: {
