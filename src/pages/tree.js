@@ -15,45 +15,48 @@ var photos = {
   'iPRm/lqVbGHOMHnU39zQm0I/UbBLA+GVosJHGVrcoWkgEktnoLydYXkF/LiXG21MwAAAAASUVORK5CYII='
 };
 
-function Tree() {
-  const config = {
-    pageFitMode: PageFitMode.AutoSize,
-    autoSizeMinimum: { width: 100, height: 100 },
-    cursorItem: 0,
-    highlightItem: 0,
-    hasSelectorCheckbox: Enabled.True,
-    items: [
-      {
-        id: 0,
-        parent: null,
-        title: 'James Smith',
-        description: 'VP, Public Sector',
-        image: photos.a
-      },
-      {
-        id: 1,
-        parent: 0,
-        title: 'Ted Lucas',
-        description: 'VP, Human Resources',
-        image: photos.a
-      },
-      {
-        id: 2,
-        parent: 0,
-        title: 'Fritz Stuger',
-        description: 'Business Solutions, US',
-        image: photos.a
-      }
-    ]
-  };
+class Tree extends React.Component {
 
-  return (
-    <Layout location={this.props.location}>
-        <div className="App">
-        <OrgDiagram centerOnCursor={true} config={config} />
-        </div>
-    </Layout>
-  );
-}
+    render() {
+        const config = {
+            pageFitMode: PageFitMode.AutoSize,
+            autoSizeMinimum: { width: 100, height: 100 },
+            cursorItem: 0,
+            highlightItem: 0,
+            hasSelectorCheckbox: Enabled.True,
+            items: [
+              {
+                id: 0,
+                parent: null,
+                title: 'James Smith',
+                description: 'VP, Public Sector',
+                image: photos.a
+              },
+              {
+                id: 1,
+                parent: 0,
+                title: 'Ted Lucas',
+                description: 'VP, Human Resources',
+                image: photos.a
+              },
+              {
+                id: 2,
+                parent: 0,
+                title: 'Fritz Stuger',
+                description: 'Business Solutions, US',
+                image: photos.a
+              }
+            ]
+        };
+  
+      return (
+        <Layout location={this.props.location}>
+            <div className="App">
+            <OrgDiagram centerOnCursor={true} config={config} />
+            </div>
+        </Layout>
+      )
+    }
+  }
 
 export default Tree;
