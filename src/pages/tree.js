@@ -70,9 +70,18 @@ export const pageQuery = graphql`
   query PlayerTreeQuery {
     allContentfulPlayer(sort: { fields: [name], order: DESC }) {
       nodes {
+        id
         name
+        chineseName
         slug
         associatedStyles
+        className
+        generation
+        teachers
+        parents
+        tags
+        birthYear
+        deathYear
         mainImage {
           gatsbyImage(
             layout: FULL_WIDTH
