@@ -1,5 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import get from 'lodash/get'
+
 import Layout from '../components/layout'
 import { OrgDiagram } from 'basicprimitivesreact';
 import { PageFitMode, Enabled } from 'basicprimitives';
@@ -18,6 +20,8 @@ var photos = {
 class Tree extends React.Component {
 
     render() {
+        const players = get(this, 'props.data.allContentfulPlayer.nodes')
+        
         const config = {
             pageFitMode: PageFitMode.AutoSize,
             autoSizeMinimum: { width: 100, height: 100 },
@@ -52,11 +56,35 @@ class Tree extends React.Component {
       return (
         <Layout location={this.props.location}>
             <div className="App">
-            <OrgDiagram centerOnCursor={true} config={config} />
+                <OrgDiagram centerOnCursor={true} config={config} />
             </div>
+            <pre>{players && JSON.stringify(players, null, 2)}</pre>
         </Layout>
       )
     }
   }
 
 export default Tree;
+
+export const pageQuery = graphql`
+  query PlayerIndexQuery {
+    allContentfulPlayer(sort: { fields: [name], order: DESC }) {
+      nodes {
+        name
+        slug
+        associatedStyles
+        mainImage {
+          gatsbyImage(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            width: 424
+            height: 212
+          )
+        }
+        shortBio {
+          raw 
+        }
+      }
+    }
+  }
+`

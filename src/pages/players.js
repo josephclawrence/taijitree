@@ -9,7 +9,7 @@ import PlayerPreview from '../components/player-preview'
 
 class PlayerIndex extends React.Component {
   render() {
-    const players = get(this, 'props.data.allContentfulPlayer.nodes')
+    const players = get(this, 'props.data.allContentfulPlayer.nodes');
 
     return (
       <Layout location={this.props.location}>
