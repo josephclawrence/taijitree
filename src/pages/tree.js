@@ -67,7 +67,7 @@ class Tree extends React.Component {
 export default Tree;
 
 export const pageQuery = graphql`
-  query PlayerIndexQuery {
+  query PlayerTreeQuery {
     allContentfulPlayer(sort: { fields: [name], order: DESC }) {
       nodes {
         name
