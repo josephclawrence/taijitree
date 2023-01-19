@@ -42,7 +42,6 @@ class Tree extends React.Component {
             highlightItem: 0,
             hasSelectorCheckbox: Enabled.True,
             pageFitMode: PageFitMode.SelectionOnly,
-            items: treeData,
             // annotations: lineagePaths,
             defaultTemplateName: "taijiTreeTemplate",
             cursorItem: 2,
@@ -69,9 +68,6 @@ class Tree extends React.Component {
                 itemSize: new Size(160, 200),
                 minimizedItemSize: new Size(15, 15),
                 onItemRender: ({ context: itemConfig }) => {
-                    const itemTitleColor = itemConfig.itemTitleColor != null ? itemConfig.itemTitleColor : Colors.RoyalBlue;
-                    const backgroundColor = itemConfig.itemTitleColor || Colors.RoyalBlue;
-
                     return <div className=" bp-item bp-corner-all bt-item-frame" style={{ width: '159px', height: '199px' }}>
                     <div className=" bp-item bp-corner-all bp-title-frame" style={{ top: '2px', left: '2px', width: '216px', height: '40px', overflow: 'hidden', backgroundColor: 'rgb(65, 105, 225)' }}>
                         <div className=" bp-item bp-title" style={{ top: '2px', left: '2px', width: '208px', height: '18px', fontSize: '14px', overflow: 'hidden' }}>{itemConfig.name}
