@@ -29,7 +29,7 @@ class Tree extends React.Component {
                 parent: player.parents.length ? player.parents[0].id : null,
                 title: player.name,
                 description: player.shortBio,
-                image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src,
+                image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
             }
         });
         const config = {
@@ -44,7 +44,7 @@ class Tree extends React.Component {
                     parent: player.parents.length ? player.parents[0].id : null,
                     title: player.name,
                     description: player.shortBio,
-                    image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src,
+                    image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
                 }
             }),
             // [
