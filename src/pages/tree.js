@@ -77,8 +77,16 @@ export const pageQuery = graphql`
         associatedStyles
         className
         generation
-        teachers
-        parents
+        teachers {
+            id
+            name
+            slug
+        }
+        parents {
+            id
+            name
+            slug
+        }
         tags
         birthYear
         deathYear
