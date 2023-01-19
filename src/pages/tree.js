@@ -24,11 +24,14 @@ class Tree extends React.Component {
     render() {
         const players = get(this, 'props.data.allContentfulPlayer.nodes')
         const items = players.map((player) => {
+            const plainTextDescription = documentToPlainTextString(
+                JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
+            )
             return {
                 id: player.id,
                 parent: player.parents && player.parents.length ? player.parents[0].id : null,
                 title: player.name,
-                description: player.shortBio,
+                description: plainTextDescription,
                 image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
             }
         });
@@ -39,11 +42,14 @@ class Tree extends React.Component {
             highlightItem: 0,
             hasSelectorCheckbox: Enabled.True,
             items: players.map((player) => {
+                const plainTextDescription = documentToPlainTextString(
+                    JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
+                )
                 return {
                     id: player.id,
                     parent: player.parents && player.parents.length ? player.parents[0].id : null,
                     title: player.name,
-                    description: player.shortBio,
+                    description: plainTextDescription,
                     image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
                 }
             }),
