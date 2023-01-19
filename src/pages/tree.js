@@ -2,6 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import get from 'lodash/get'
 
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+
 import Layout from '../components/layout'
 import { OrgDiagram } from 'basicprimitivesreact';
 import { PageFitMode, Enabled } from 'basicprimitives';
@@ -21,36 +23,53 @@ class Tree extends React.Component {
 
     render() {
         const players = get(this, 'props.data.allContentfulPlayer.nodes')
-        
+        const items = players.map((player) => {
+            return {
+                id: player.id,
+                parent: player.parents.length ? player.parents[0].id : null,
+                title: player.name,
+                description: player.shortBio,
+                image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src,
+            }
+        });
         const config = {
             pageFitMode: PageFitMode.AutoSize,
             autoSizeMinimum: { width: 100, height: 100 },
             cursorItem: 0,
             highlightItem: 0,
             hasSelectorCheckbox: Enabled.True,
-            items: [
-              {
-                id: 0,
-                parent: null,
-                title: 'James Smith',
-                description: 'VP, Public Sector',
-                image: photos.a
-              },
-              {
-                id: 1,
-                parent: 0,
-                title: 'Ted Lucas',
-                description: 'VP, Human Resources',
-                image: photos.a
-              },
-              {
-                id: 2,
-                parent: 0,
-                title: 'Fritz Stuger',
-                description: 'Business Solutions, US',
-                image: photos.a
-              }
-            ]
+            items: players.map((player) => {
+                return {
+                    id: player.id,
+                    parent: player.parents.length ? player.parents[0].id : null,
+                    title: player.name,
+                    description: player.shortBio,
+                    image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src,
+                }
+            }),
+            // [
+            //   {
+            //     id: 0,
+            //     parent: null,
+            //     title: 'James Smith',
+            //     description: 'VP, Public Sector',
+            //     image: photos.a
+            //   },
+            //   {
+            //     id: 1,
+            //     parent: 0,
+            //     title: 'Ted Lucas',
+            //     description: 'VP, Human Resources',
+            //     image: photos.a
+            //   },
+            //   {
+            //     id: 2,
+            //     parent: 0,
+            //     title: 'Fritz Stuger',
+            //     description: 'Business Solutions, US',
+            //     image: photos.a
+            //   }
+            // ]
         };
   
       return (
@@ -58,6 +77,7 @@ class Tree extends React.Component {
             <div className="App">
                 <OrgDiagram centerOnCursor={true} config={config} />
             </div>
+            <pre>{items && JSON.stringify(items, null, 2)}</pre>
             <pre>{players && JSON.stringify(players, null, 2)}</pre>
         </Layout>
       )
