@@ -6,7 +6,7 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 
 import Layout from '../components/layout'
 import { OrgDiagram } from 'basicprimitivesreact';
-import { PageFitMode, Enabled, Size, Colors } from 'basicprimitives';
+import { PageFitMode, Enabled, Size } from 'basicprimitives';
 
 var photos = {
   a: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA8CAIAAACrV36WAAAAAXNSR0IArs4c6QAAAARn' + 
@@ -36,33 +36,32 @@ class Tree extends React.Component {
             }
         });
         const config = {
-            pageFitMode: PageFitMode.AutoSize,
-            autoSizeMinimum: { width: 100, height: 100 },
-            cursorItem: 0,
-            highlightItem: 0,
-            hasSelectorCheckbox: Enabled.True,
-            pageFitMode: PageFitMode.SelectionOnly,
-            // annotations: lineagePaths,
+            // pageFitMode: PageFitMode.AutoSize,
+            // autoSizeMinimum: { width: 100, height: 100 },
+            // cursorItem: 0,
+            // highlightItem: 0,
+            // hasSelectorCheckbox: Enabled.True,
+            // pageFitMode: PageFitMode.SelectionOnly,
             defaultTemplateName: "taijiTreeTemplate",
-            cursorItem: 2,
-            linesWidth: 1,
-            linesColor: "black",
-            hasSelectorCheckbox: Enabled.False,
-            normalLevelShift: 20,
-            dotLevelShift: 20,
-            lineLevelShift: 20,
-            normalItemsInterval: 10,
-            dotItemsInterval: 10,
-            lineItemsInterval: 10,
-            highlightItem: true,
-            highlightLinesWidth: 6,
-            highlightLinesColor: "#ff0000",
-            showNeigboursConnectorsHighlighted: true,
-            neighboursSelectionMode: 1,
-            enableMatrixLayout: true,
-            maximumColumnsInMatrix: 4,
-            selectionPathMode: 1,
-            navigationMode: 0,
+            // cursorItem: 2,
+            // linesWidth: 1,
+            // linesColor: "black",
+            // hasSelectorCheckbox: Enabled.False,
+            // normalLevelShift: 20,
+            // dotLevelShift: 20,
+            // lineLevelShift: 20,
+            // normalItemsInterval: 10,
+            // dotItemsInterval: 10,
+            // lineItemsInterval: 10,
+            // highlightItem: true,
+            // highlightLinesWidth: 6,
+            // highlightLinesColor: "#ff0000",
+            // showNeigboursConnectorsHighlighted: true,
+            // neighboursSelectionMode: 1,
+            // enableMatrixLayout: true,
+            // maximumColumnsInMatrix: 4,
+            // selectionPathMode: 1,
+            // navigationMode: 0,
             templates: [{
                 name: "taijiTreeTemplate",
                 itemSize: new Size(160, 200),
