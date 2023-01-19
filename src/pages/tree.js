@@ -26,11 +26,10 @@ class Tree extends React.Component {
         const items = players.map((player) => {
             return {
                 id: player.id,
-                parent: player.parents.length ? player.parents[0].id : null,
+                parent: player.parents && player.parents.length ? player.parents[0].id : null,
                 title: player.name,
                 description: player.shortBio,
-                image: photos.a,
-                // image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
+                image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
             }
         });
         const config = {
@@ -42,11 +41,10 @@ class Tree extends React.Component {
             items: players.map((player) => {
                 return {
                     id: player.id,
-                    parent: player.parents.length ? player.parents[0].id : null,
+                    parent: player.parents && player.parents.length ? player.parents[0].id : null,
                     title: player.name,
                     description: player.shortBio,
-                    image: photos.a,
-                    // image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
+                    image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
                 }
             }),
             // [
@@ -112,9 +110,6 @@ export const pageQuery = graphql`
         tags
         birthYear
         deathYear
-        shortBio {
-          raw 
-        }
         mainImage {
           gatsbyImage(
             layout: FULL_WIDTH
@@ -122,7 +117,10 @@ export const pageQuery = graphql`
             width: 424
             height: 212
           )
-        }        
+        }
+        shortBio {
+          raw 
+        }
       }
     }
   }
