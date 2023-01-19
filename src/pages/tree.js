@@ -6,7 +6,7 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 
 import Layout from '../components/layout'
 import { OrgDiagram } from 'basicprimitivesreact';
-import { PageFitMode, Enabled } from 'basicprimitives';
+import { PageFitMode, Enabled, Size, Colors } from 'basicprimitives';
 
 var photos = {
   a: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA8CAIAAACrV36WAAAAAXNSR0IArs4c6QAAAARn' + 
@@ -41,14 +41,14 @@ class Tree extends React.Component {
             cursorItem: 0,
             highlightItem: 0,
             hasSelectorCheckbox: Enabled.True,
-            pageFitMode: primitives.common.PageFitMode.SelectionOnly,
+            pageFitMode: PageFitMode.SelectionOnly,
             items: treeData,
             // annotations: lineagePaths,
             defaultTemplateName: "taijiTreeTemplate",
             cursorItem: 2,
             linesWidth: 1,
             linesColor: "black",
-            hasSelectorCheckbox: primitives.common.Enabled.False,
+            hasSelectorCheckbox: Enabled.False,
             normalLevelShift: 20,
             dotLevelShift: 20,
             lineLevelShift: 20,
@@ -66,11 +66,11 @@ class Tree extends React.Component {
             navigationMode: 0,
             templates: [{
                 name: "taijiTreeTemplate",
-                itemSize: new primitives.common.Size(160, 200),
-                minimizedItemSize: new primitives.common.Size(15, 15),
+                itemSize: new Size(160, 200),
+                minimizedItemSize: new Size(15, 15),
                 onItemRender: ({ context: itemConfig }) => {
                     const itemTitleColor = itemConfig.itemTitleColor != null ? itemConfig.itemTitleColor : Colors.RoyalBlue;
-                    const backgroundColor = itemConfig.itemTitleColor || primitives.common.Colors.RoyalBlue;
+                    const backgroundColor = itemConfig.itemTitleColor || Colors.RoyalBlue;
 
                     return <div className=" bp-item bp-corner-all bt-item-frame" style={{ width: '159px', height: '199px' }}>
                     <div className=" bp-item bp-corner-all bp-title-frame" style={{ top: '2px', left: '2px', width: '216px', height: '40px', overflow: 'hidden', backgroundColor: 'rgb(65, 105, 225)' }}>
