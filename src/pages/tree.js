@@ -44,8 +44,6 @@ class Tree extends React.Component {
             pageFitMode: primitives.common.PageFitMode.SelectionOnly,
             items: treeData,
             // annotations: lineagePaths,
-            templates: [getTaijiTreeTemplate()],
-            onItemRender: onTaijiTemplateRender,
             defaultTemplateName: "taijiTreeTemplate",
             cursorItem: 2,
             linesWidth: 1,
