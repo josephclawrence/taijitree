@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
@@ -16,6 +16,16 @@ const colours = {
     darkBlue: '#1D3557',
 };
 
+const family = {
+    yang: '#AE2012',
+    chen: '#0A9396',
+    wu: '#CA6702',
+    sun: '#94D2BD',
+    hao: '#EE9B00',
+    li: '#E9D8A6',
+    zhaobao: '#001219',
+};
+
 class Tree extends React.Component {
 
     render() {
@@ -27,6 +37,7 @@ class Tree extends React.Component {
             return {
                 id: player.id,
                 parent: player.parents && player.parents.length ? player.parents[0].id : null,
+                slug: player.slug,
                 name: player.name,
                 birthYear: player.birthYear,
                 deathYear: player.deathYear,
@@ -35,6 +46,8 @@ class Tree extends React.Component {
                 groupTitle: player.generation,
                 description: plainTextDescription,
                 image: player.mainImage ? player.mainImage.gatsbyImage.images.fallback.src : null,
+                family: player.className,
+                itemTitleColor: family[player.className],
             }
         });
         const config = {
@@ -84,7 +97,9 @@ class Tree extends React.Component {
                       <div className=" bp-item" style={{ height: '18px', fontSize: '12px', overflow: 'hidden' }}></div>
                       {/* <div className=" bp-item" style={{ height: '36px', fontSize: '10px', overflow: 'hidden' }}>{itemConfig.generation}</div> */}
                       <div className=" bp-item" style={{ height: '20px', fontSize: '14px', textAlign: 'center', overflow: 'hidden' }}>
-                          <a href={itemConfig.image}>View &#8594;</a>
+                        <Link to={`/players/${itemConfig.slug}`}>
+                            View &#8594;
+                        </Link>
                       </div>
                   </div>;
                   },
