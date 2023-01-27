@@ -61,7 +61,12 @@ class PlayerTemplate extends React.Component {
               {post.longBio?.raw && renderRichText(post.longBio, options)}
             </div>
             <Tags tags={post.associatedStyles} />
-            {(previous || next) && (
+            {parents && parents.map((parent) => {
+              return (
+                <h2>Parent: {parent.name}</h2>
+              )
+            })}
+            {/* {(previous || next) && (
               <nav>
                 <ul className={styles.articleNavigation}>
                   {previous && (
@@ -80,7 +85,7 @@ class PlayerTemplate extends React.Component {
                   )}
                 </ul>
               </nav>
-            )}
+            )} */}
           </div>
         </div>
       </Layout>
@@ -116,6 +121,14 @@ export const pageQuery = graphql`
         raw
       }
       wikipediaUrl
+      parents {
+        name
+        slug
+      }
+      children {
+        name
+        slug
+      }
     }
     previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
       slug

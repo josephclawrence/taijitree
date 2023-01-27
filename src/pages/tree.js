@@ -118,9 +118,7 @@ class Tree extends React.Component {
   
       return (
         <Layout location={this.props.location}>
-            <div className="App">
-                <OrgDiagram centerOnCursor={false} config={config} />
-            </div>
+            <OrgDiagram centerOnCursor={false} config={config} />
             <pre>{items && JSON.stringify(items, null, 2)}</pre>
             <pre>{players && JSON.stringify(players, null, 2)}</pre>
         </Layout>
