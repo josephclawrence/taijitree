@@ -61,7 +61,7 @@ class PlayerTemplate extends React.Component {
               {player.longBio?.raw && renderRichText(player.longBio, options)}
             </div>
             <Tags tags={player.associatedStyles} />
-            Parent
+            <p>Parent</p>
             {player.parents && player.parents.map((parent) => {
               return (
                 <Link to={`/players/${parent.slug}`} className={styles.link}>
@@ -69,8 +69,8 @@ class PlayerTemplate extends React.Component {
                 </Link>
               )
             })}
-            <br><hr>
-            Students
+
+            <p>Students</p>
             {player.students && player.students.map((student) => {
               return (
                 <Link to={`/players/${student.slug}`} className={styles.link}>
