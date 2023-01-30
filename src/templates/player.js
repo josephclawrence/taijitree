@@ -61,9 +61,21 @@ class PlayerTemplate extends React.Component {
               {post.longBio?.raw && renderRichText(post.longBio, options)}
             </div>
             <Tags tags={post.associatedStyles} />
+            Parent
             {parents && parents.map((parent) => {
               return (
-                <h2>Parent: {parent.name}</h2>
+                <Link to={`/players/${parent.slug}`} className={styles.link}>
+                  <h2 className={styles.title}>{parent.name}</h2>
+                </Link>
+              )
+            })}
+            <br><hr></hr></br>
+            Students
+            {students && students.map((student) => {
+              return (
+                <Link to={`/players/${student.slug}`} className={styles.link}>
+                  <h2 className={styles.title}>{student.name}</h2>
+                </Link>
               )
             })}
             {/* {(previous || next) && (
@@ -125,7 +137,7 @@ export const pageQuery = graphql`
         name
         slug
       }
-      children {
+      students {
         name
         slug
       }
