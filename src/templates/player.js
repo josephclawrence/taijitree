@@ -15,11 +15,11 @@ import * as styles from './blog-post.module.css'
 
 class PlayerTemplate extends React.Component {
   render() {
-    const post = get(this.props, 'data.contentfulPlayer')
+    const player = get(this.props, 'data.contentfulPlayer')
     const previous = get(this.props, 'data.previous')
     const next = get(this.props, 'data.next')
     const plainTextDescription = documentToPlainTextString(
-      JSON.parse(post.shortBio && post.shortBio !== null && post.shortBio !== undefined ? post.shortBio?.raw : null)
+      JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
     )
     
     const options = {
@@ -39,30 +39,30 @@ class PlayerTemplate extends React.Component {
     return (
       <Layout location={this.props.location}>
         <Seo
-          title={post.name}
+          title={player.name}
           description={plainTextDescription}
-          image={`http:${post.mainImage?.resize.src}`}
+          image={`http:${player.mainImage?.resize.src}`}
         />
         <Hero
-          image={post.mainImage?.gatsbyImage}
-          title={post.name}
-          content={post.shortBio}
+          image={player.mainImage?.gatsbyImage}
+          title={player.name}
+          content={player.shortBio}
         />
         <div className={styles.container}>
             <p className={styles.meta}>
-            {post.chineseName}
+            {player.chineseName}
           </p>
           <span className={styles.meta}>
-            {post.birthYear} - {post.deathYear}
+            {player.birthYear} - {player.deathYear}
           </span>
           
           <div className={styles.article}>
             <div className={styles.body}>
-              {post.longBio?.raw && renderRichText(post.longBio, options)}
+              {player.longBio?.raw && renderRichText(player.longBio, options)}
             </div>
-            <Tags tags={post.associatedStyles} />
+            <Tags tags={player.associatedStyles} />
             Parent
-            {parents && parents.map((parent) => {
+            {player.parents && player.parents.map((parent) => {
               return (
                 <Link to={`/players/${parent.slug}`} className={styles.link}>
                   <h2 className={styles.title}>{parent.name}</h2>
@@ -71,7 +71,7 @@ class PlayerTemplate extends React.Component {
             })}
             <br><hr></hr></br>
             Students
-            {students && students.map((student) => {
+            {player.students && player.students.map((student) => {
               return (
                 <Link to={`/players/${student.slug}`} className={styles.link}>
                   <h2 className={styles.title}>{student.name}</h2>
