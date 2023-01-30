@@ -69,7 +69,7 @@ class PlayerTemplate extends React.Component {
                 </Link>
               )
             })}
-            <br><hr></hr></br>
+            <br><hr>
             Students
             {player.students && player.students.map((student) => {
               return (
