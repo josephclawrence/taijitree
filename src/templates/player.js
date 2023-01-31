@@ -20,8 +20,9 @@ class PlayerTemplate extends React.Component {
     // const next = get(this.props, 'data.next')
     const parents = Array.isArray(get(this.props, 'data.parents')) ? get(this.props, 'data.parents') : [get(this.props, 'data.parents')];
     const students = Array.isArray(get(this.props, 'data.students')) ? get(this.props, 'data.students') : [get(this.props, 'data.students')];
+    console.log("parents: ", get(this.props, 'data.parents'));
     console.log("parents: ", parents);
-    console.log("students: ", students);
+    // console.log("students: ", students);
     const plainTextDescription = documentToPlainTextString(
       JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
     )
@@ -93,7 +94,7 @@ class PlayerTemplate extends React.Component {
               )
             })}
 
-            {students && students.map((student) => {
+            {/* {students && students.map((student) => {
               return (
                 <Link to={`/players/${student.slug}`} className={styles.link}>
                   <h2 className={styles.title}>{student.name}</h2>
@@ -101,7 +102,7 @@ class PlayerTemplate extends React.Component {
                   {student.birthYear} - {student.deathYear}
                 </Link>
               )
-            })}
+            })} */}
             {/* {(previous || next) && (
               <nav>
                 <ul className={styles.articleNavigation}>

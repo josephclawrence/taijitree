@@ -95,7 +95,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       // const previousPlayerSlug = index === 0 ? null : players[index - 1].slug;
       // const nextPlayerSlug = index === players.length - 1 ? null : players[index + 1].slug
       const parentsOfCurrent = player.parents ? player.parents.map(parent => parent.slug) : [];
-      const studentsOfCurrent = player.students ? player.students.map(student => student.slug) : []
+      const studentsOfCurrent = player.students ? player.students.map(student => student.slug) : [];
       console.log(parentsOfCurrent)
       console.log(studentsOfCurrent)
       createPage({
