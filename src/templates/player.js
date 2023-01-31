@@ -18,8 +18,8 @@ class PlayerTemplate extends React.Component {
     const player = get(this.props, 'data.contentfulPlayer')
     // const previous = get(this.props, 'data.previous')
     // const next = get(this.props, 'data.next')
-    const parents = get(this.props, 'data.parents')
-    const students = get(this.props, 'data.students')
+    const parents = Array.isArray(get(this.props, 'data.parents')) ? get(this.props, 'data.parents') : [get(this.props, 'data.parents')];
+    const students = Array.isArray(get(this.props, 'data.students')) ? get(this.props, 'data.students') : [get(this.props, 'data.students')];
     console.log("parents: ", parents);
     console.log("students: ", students);
     const plainTextDescription = documentToPlainTextString(
