@@ -20,6 +20,8 @@ class PlayerTemplate extends React.Component {
     // const next = get(this.props, 'data.next')
     const parents = get(this.props, 'data.parents')
     const students = get(this.props, 'data.students')
+    console.log("parents: ", parents);
+    console.log("students: ", students);
     const plainTextDescription = documentToPlainTextString(
       JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
     )
@@ -165,7 +167,6 @@ export const pageQuery = graphql`
       }
     }
     parents: allContentfulPlayer(filter: { slug: { in: $parentsOfCurrent }}) {
-      nodes {
         name
         slug
         mainImage {
@@ -177,10 +178,8 @@ export const pageQuery = graphql`
         chineseName
         birthYear
         deathYear
-      }
     }
     students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
-      nodes {
         name
         slug
         mainImage {
@@ -192,7 +191,6 @@ export const pageQuery = graphql`
         chineseName
         birthYear
         deathYear
-      }
     }
     # previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
     #   slug
