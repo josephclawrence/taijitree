@@ -16,8 +16,10 @@ import * as styles from './blog-post.module.css'
 class PlayerTemplate extends React.Component {
   render() {
     const player = get(this.props, 'data.contentfulPlayer')
-    const previous = get(this.props, 'data.previous')
-    const next = get(this.props, 'data.next')
+    // const previous = get(this.props, 'data.previous')
+    // const next = get(this.props, 'data.next')
+    const parents = get(this.props, 'data.parents')
+    const students = get(this.props, 'data.students')
     const plainTextDescription = documentToPlainTextString(
       JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
     )
@@ -70,11 +72,31 @@ class PlayerTemplate extends React.Component {
               )
             })}
 
+            {parents && parents.map((parent) => {
+              return (
+                <Link to={`/players/${parent.slug}`} className={styles.link}>
+                  <h2 className={styles.title}>{parent.name}</h2>
+                  <h4 className={styles.title}>{parent.chineseName}</h4>
+                  {parent.birthYear} - {parent.deathYear}
+                </Link>
+              )
+            })}
+
             <p>Students</p>
             {player.students && player.students.map((student) => {
               return (
                 <Link to={`/players/${student.slug}`} className={styles.link}>
                   <h2 className={styles.title}>{student.name}</h2>
+                </Link>
+              )
+            })}
+
+            {students && students.map((student) => {
+              return (
+                <Link to={`/players/${student.slug}`} className={styles.link}>
+                  <h2 className={styles.title}>{student.name}</h2>
+                  <h4 className={styles.title}>{student.chineseName}</h4>
+                  {student.birthYear} - {student.deathYear}
                 </Link>
               )
             })}
@@ -142,13 +164,52 @@ export const pageQuery = graphql`
         slug
       }
     }
-    previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
-      slug
-      name
+    parents: allContentfulPlayer(sort: { fields: [name], order: DESC }) {
+      nodes {
+        name
+        slug
+        associatedStyles
+        mainImage {
+          gatsbyImage(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            width: 424
+            height: 212
+          )
+        }
+        shortBio {
+          raw 
+        }
+      }
     }
-    next: contentfulPlayer(slug: { eq: $nextPlayerSlug }) {
-      slug
-      name
+    parents: allContentfulPlayer(where: { slug_in: $parentsOfCurrent}) {
+      nodes {
+        name
+        slug
+        mainImage
+        chineseName
+        birthYear
+        deathYear
+      }
     }
+    students: allContentfulPlayer(where: { slug_in: $studentsOfCurrent}) {
+      nodes {
+        name
+        slug
+        mainImage
+        chineseName
+        birthYear
+        deathYear
+      }
+    }
+    # previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
+    #   slug
+    #   name
+    # }
+    # next: contentfulPlayer(slug: { eq: $nextPlayerSlug }) {
+    #   slug
+    #   name
+    # }
   }
-`
+`;
+

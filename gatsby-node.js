@@ -64,6 +64,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             name
             slug
+            parents
+            students
           }
         }
       }
@@ -85,19 +87,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // `context` is available in the template as a prop and as a variable in GraphQL
 
   if (players.length > 0) {
-    players.forEach((player, index) => {
-      console.log(player.slug);
-      const previousPlayerSlug = index === 0 ? null : players[index - 1].slug
-      const nextPlayerSlug =
-        index === players.length - 1 ? null : players[index + 1].slug
+    players.forEach((player, index) => {      
+      // const previousPlayerSlug = index === 0 ? null : players[index - 1].slug;
+      // const nextPlayerSlug = index === players.length - 1 ? null : players[index + 1].slug
 
       createPage({
         path: `/players/${player.slug}/`,
         component: playersTemplate,
         context: {
           slug: player.slug,
-          previousPlayerSlug,
-          nextPlayerSlug,
+          // previousPlayerSlug,
+          // nextPlayerSlug,
+          parentsOfCurrent: player.parents.map(parent => parent.slug),
+          studentsOfCurrent: player.students.map(student => student.slug),
         },
       })
     })
