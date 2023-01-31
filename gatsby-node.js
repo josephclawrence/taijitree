@@ -64,8 +64,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             name
             slug
-            parents
-            students
+            parents {
+              slug
+            }
+            students {
+              slug
+            }
           }
         }
       }

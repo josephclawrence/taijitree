@@ -164,24 +164,6 @@ export const pageQuery = graphql`
         slug
       }
     }
-    parents: allContentfulPlayer(sort: { fields: [name], order: DESC }) {
-      nodes {
-        name
-        slug
-        associatedStyles
-        mainImage {
-          gatsbyImage(
-            layout: FULL_WIDTH
-            placeholder: BLURRED
-            width: 424
-            height: 212
-          )
-        }
-        shortBio {
-          raw 
-        }
-      }
-    }
     parents: allContentfulPlayer(where: { slug_in: $parentsOfCurrent}) {
       nodes {
         name
