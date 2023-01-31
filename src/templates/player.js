@@ -164,7 +164,7 @@ export const pageQuery = graphql`
         slug
       }
     }
-    parents: allContentfulPlayer(where: { slug_in: $parentsOfCurrent}) {
+    parents: allContentfulPlayer(filter: { slug: { in: $parentsOfCurrent }}) {
       nodes {
         name
         slug
@@ -179,7 +179,7 @@ export const pageQuery = graphql`
         deathYear
       }
     }
-    students: allContentfulPlayer(where: { slug_in: $studentsOfCurrent}) {
+    students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
       nodes {
         name
         slug
