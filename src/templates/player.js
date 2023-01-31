@@ -135,7 +135,6 @@ export const pageQuery = graphql`
   query PlayerBySlug(
     $slug: String!
     $parentsOfCurrent: [String]
-    $studentsOfCurrent: [String]
   ) {
     contentfulPlayer(slug: { eq: $slug }) {
       slug
