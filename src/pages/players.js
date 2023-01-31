@@ -41,6 +41,10 @@ export const pageQuery = graphql`
         shortBio {
           raw 
         }
+        parents {
+          name
+          slug
+        }
       }
     }
   }

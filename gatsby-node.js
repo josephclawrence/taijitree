@@ -94,7 +94,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     players.forEach((player, index) => {      
       // const previousPlayerSlug = index === 0 ? null : players[index - 1].slug;
       // const nextPlayerSlug = index === players.length - 1 ? null : players[index + 1].slug
-
+      console.log("************", player.parents?.map(parent => parent.slug))
+      console.log("************", player.students?.map(student => student.slug))
       createPage({
         path: `/players/${player.slug}/`,
         component: playersTemplate,
