@@ -103,8 +103,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           slug: player.slug,
           // previousPlayerSlug,
           // nextPlayerSlug,
-          parentsOfCurrent: player.parents?.map(parent => parent.slug),
-          studentsOfCurrent: player.students?.map(student => student.slug),
+          parentsOfCurrent: player.parents ? player.parents.map(parent => parent.slug) : [],
+          studentsOfCurrent: player.students ? player.students.map(student => student.slug) : [],
         },
       })
     })

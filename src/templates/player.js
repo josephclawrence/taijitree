@@ -167,6 +167,7 @@ export const pageQuery = graphql`
       }
     }
     parents: allContentfulPlayer(filter: { slug: { in: $parentsOfCurrent }}) {
+      nodes {
         name
         slug
         mainImage {
@@ -178,8 +179,10 @@ export const pageQuery = graphql`
         chineseName
         birthYear
         deathYear
+      }
     }
     students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
+      nodes {
         name
         slug
         mainImage {
@@ -191,6 +194,7 @@ export const pageQuery = graphql`
         chineseName
         birthYear
         deathYear
+      }
     }
     # previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
     #   slug
