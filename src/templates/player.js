@@ -170,32 +170,32 @@ export const pageQuery = graphql`
       nodes {
         name
         slug
-        mainImage {
-          gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
-          resize(height: 630, width: 1200) {
-            src
-          }
-        }
-        chineseName
-        birthYear
-        deathYear
+        # mainImage {
+        #   gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
+        #   resize(height: 630, width: 1200) {
+        #     src
+        #   }
+        # }
+        # chineseName
+        # birthYear
+        # deathYear
       }
     }
-    students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
-      nodes {
-        name
-        slug
-        mainImage {
-          gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
-          resize(height: 630, width: 1200) {
-            src
-          }
-        }
-        chineseName
-        birthYear
-        deathYear
-      }
-    }
+    # students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
+    #   nodes {
+    #     name
+    #     slug
+    #     mainImage {
+    #       gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
+    #       resize(height: 630, width: 1200) {
+    #         src
+    #       }
+    #     }
+    #     chineseName
+    #     birthYear
+    #     deathYear
+    #   }
+    # }
     # previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
     #   slug
     #   name

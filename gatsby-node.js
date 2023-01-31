@@ -94,8 +94,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     players.forEach((player, index) => {      
       // const previousPlayerSlug = index === 0 ? null : players[index - 1].slug;
       // const nextPlayerSlug = index === players.length - 1 ? null : players[index + 1].slug
-      console.log("************", player.parents?.map(parent => parent.slug))
-      console.log("************", player.students?.map(student => student.slug))
+      const parentsOfCurrent = player.parents ? player.parents.map(parent => parent.slug) : [];
+      const studentsOfCurrent = player.students ? player.students.map(student => student.slug) : []
+      console.log(parentsOfCurrent)
+      console.log(studentsOfCurrent)
       createPage({
         path: `/players/${player.slug}/`,
         component: playersTemplate,
@@ -103,8 +105,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           slug: player.slug,
           // previousPlayerSlug,
           // nextPlayerSlug,
-          parentsOfCurrent: player.parents ? player.parents.map(parent => parent.slug) : [],
-          studentsOfCurrent: player.students ? player.students.map(student => student.slug) : [],
+          parentsOfCurrent,
+          studentsOfCurrent,
         },
       })
     })
