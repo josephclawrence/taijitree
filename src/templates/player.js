@@ -1,133 +1,189 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
-import { BLOCKS } from '@contentful/rich-text-types'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import readingTime from 'reading-time'
+import React, { useEffect } from 'react';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-import Seo from '../components/seo'
-import Layout from '../components/layout'
-import Hero from '../components/hero'
-import Tags from '../components/tags'
-import * as styles from './blog-post.module.css'
+import Seo from '../components/seo';
+import Layout from '../components/layout';
+import Hero from '../components/hero';
+import Topbar from '../components/topbar';
+import PlayerSidebar from '../components/player-sidebar';
+import PlayerTree from '../components/player-tree';
+import Tags from '../components/tags';
+import PlayerCard from '../components/player-card';
+import * as styles from './blog-post.module.css';
+// import './player.module.css';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import MaterialLink from '@mui/material/Link';
+import Grid from '@mui/material/Unstable_Grid2';
 
-class PlayerTemplate extends React.Component {
-  render() {
-    const player = get(this.props, 'data.contentfulPlayer')
-    // const previous = get(this.props, 'data.previous')
-    // const next = get(this.props, 'data.next')
-    const parents = Array.isArray(get(this.props, 'data.parents')) ? get(this.props, 'data.parents') : [get(this.props, 'data.parents')];
-    const students = Array.isArray(get(this.props, 'data.students')) ? get(this.props, 'data.students') : [get(this.props, 'data.students')];
-    console.log("parents: ", get(this.props, 'data.parents'));
-    console.log("parents: ", parents);
-    // console.log("students: ", students);
-    const plainTextDescription = documentToPlainTextString(
-      JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
-    )
-    
-    const options = {
-      renderNode: {
-        [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        const { gatsbyImage, description } = node.data.target
-        return (
-           <GatsbyImage
-              image={getImage(gatsbyImage)}
-              alt={description}
-           />
-         )
-        },
+import Typography from '@mui/material/Typography';
+import Carousel from 'react-material-ui-carousel';
+import YoutubeEmbed from '../components/youtube-embed';
+import ImageGallery from '../components/image-gallery';
+import LinkCard from '../components/link-card';
+
+import { family } from '../components/constants';
+
+function getMeta(url) {
+  fetch('/api/getMeta?url=' + url)
+    .then((response) => {
+      if (response.status >= 200 && response.status <= 299) {
+        return response.json()
+      } else {
+        throw Error(response.message)
+      }
+    })
+    .then((response) => {
+      // Save response in state hook
+      console.log(response);
+      return <LinkCard linkData={response.data} />
+
+    })
+    .catch((error) => {
+      // Handle the error
+    })
+}
+
+function PlayerTemplate(props) {
+  const player = get(props, 'data.contentfulPlayer');
+
+  const parents = get(props, 'data.parents').nodes;
+  const students = get(props, 'data.students').nodes;
+
+  // console.log("stuents: ", students);
+  const plainTextDescription = documentToPlainTextString(
+    JSON.parse(player.shortBio && player.shortBio !== null && player.shortBio !== undefined ? player.shortBio?.raw : null)
+  );
+
+  // useEffect(() => {
+  //   fetch('/api/getMeta')
+  //     .then((response) => {
+  //       if (response.status >= 200 && response.status <= 299) {
+  //         return response.json()
+  //       } else {
+  //         throw Error(response.message)
+  //       }
+  //     })
+  //     .then((response) => {
+  //       // Save response in state hook
+  //       console.log(response)
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error
+  //     })
+  // }, []);
+  
+  const options = {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const { gatsbyImage, description } = node.data.target
+      return (
+          <GatsbyImage
+            image={getImage(gatsbyImage)}
+            alt={description}
+          />
+        )
       },
-    };
+    },
+  };
 
-    return (
-      <Layout location={this.props.location}>
-        <Seo
-          title={player.name}
-          description={plainTextDescription}
-          image={`http:${player.mainImage?.resize.src}`}
-        />
-        <Hero
-          image={player.mainImage?.gatsbyImage}
-          title={player.name}
-          content={player.shortBio}
-        />
-        <div className={styles.container}>
-            <p className={styles.meta}>
-            {player.chineseName}
-          </p>
-          <span className={styles.meta}>
-            {player.birthYear} - {player.deathYear}
-          </span>
-          
-          <div className={styles.article}>
-            <div className={styles.body}>
-              {player.longBio?.raw && renderRichText(player.longBio, options)}
+  return (
+    <Layout location={props.location}>
+      <Seo
+        title={player.name}
+        description={plainTextDescription}
+        image={`http:${player.mainImage?.resize.src}`}
+      />
+      
+      <Hero
+        image={player.mainImage?.gatsbyImage}
+        name={player.name}
+        content={player.shortBio}
+        chineseName={player.chineseName}
+        birthYear={player.birthYear}
+        deathYear={player.deathYear}
+        generation={player.generation}
+        associatedStyles={player.styles}
+      />
+      <Grid container sx={{ position: "relative", top: "50px", borderTop: "1px solid #eee" }}>
+        <Grid item sm={3} md={2} sx={{ paddingTop: "35px", borderRight: "1px solid #eee" }}>
+          <PlayerSidebar 
+            gallery={player.gallery && player.gallery.length > 0}
+            videos={player.videos && player.videos.length > 0}
+            wikipedia={player.wikipediaUrl}
+            socialMediaProfiles={player.socialMediaProfiles}
+            websites={player.websites}
+            links={player.links}
+          />
+        </Grid>
+        <Grid item sm={6} md={7} sx={{ paddingTop: "35px", borderRight: "1px solid #eee" }}>
+          <Container maxWidth="xl" >
+            <div className={styles.container}>
+              <div className={styles.article} id="MainBio">
+                <div className={styles.body}>
+                  {player.longBio?.raw && renderRichText(player.longBio, options)}
+                </div>
+                
+              </div>
             </div>
-            <Tags tags={player.associatedStyles} />
-            <p>Parent</p>
-            {player.parents && player.parents.map((parent) => {
-              return (
-                <Link to={`/players/${parent.slug}`} className={styles.link}>
-                  <h2 className={styles.title}>{parent.name}</h2>
-                </Link>
-              )
-            })}
-
-            {parents && parents.map((parent) => {
-              return (
-                <Link to={`/players/${parent.slug}`} className={styles.link}>
-                  <h2 className={styles.title}>{parent.name}</h2>
-                  <h4 className={styles.title}>{parent.chineseName}</h4>
-                  {parent.birthYear} - {parent.deathYear}
-                </Link>
-              )
-            })}
-
-            <p>Students</p>
-            {player.students && player.students.map((student) => {
-              return (
-                <Link to={`/players/${student.slug}`} className={styles.link}>
-                  <h2 className={styles.title}>{student.name}</h2>
-                </Link>
-              )
-            })}
-
-            {/* {students && students.map((student) => {
-              return (
-                <Link to={`/players/${student.slug}`} className={styles.link}>
-                  <h2 className={styles.title}>{student.name}</h2>
-                  <h4 className={styles.title}>{student.chineseName}</h4>
-                  {student.birthYear} - {student.deathYear}
-                </Link>
-              )
-            })} */}
-            {/* {(previous || next) && (
-              <nav>
-                <ul className={styles.articleNavigation}>
-                  {previous && (
-                    <li>
-                      <Link to={`/players/${previous.slug}`} rel="prev">
-                        ← {previous.name}
-                      </Link>
-                    </li>
-                  )}
-                  {next && (
-                    <li>
-                      <Link to={`/players/${next.slug}`} rel="next">
-                        {next.name} →
-                      </Link>
-                    </li>
-                  )}
-                </ul>
-              </nav>
-            )} */}
-          </div>
-        </div>
-      </Layout>
-    )
-  }
+            { player.gallery && 
+              <Box id="PlayerGallery">
+                <h4>Images</h4>
+                <ImageGallery images={player.gallery} />
+              </Box>
+            }
+            { player.videos && 
+              <Box id="PlayerVideos">
+                <h4>Videos</h4>
+                <Carousel>
+                  { player.videos.map( (video, i) => <YoutubeEmbed key={`playervideos_${i}`} url={video} /> ) }
+                </Carousel>
+              </Box>
+            }
+            { player.links && 
+              <Box id="PlayerLinks">
+                <h4>Links</h4>
+                <Grid container spacing={2}>
+                { player.links && player.links.map((link, i) => (
+                  <Grid item sm={3} md={4}>
+                    <LinkCard key={`playerlink_${i}`} url={link} /> 
+                  </Grid>
+                )) }
+                </Grid>
+              </Box>
+            }
+            { player.references && 
+              <>
+              <h4>References</h4>
+              { player.references && player.references.map((reference, idx) => (
+                <p key={`reference_${idx}`}>
+                  <MaterialLink
+                    target="_blank" 
+                    rel="noopener"
+                    href={reference}>
+                      {reference}
+                  </MaterialLink>                
+                </p>
+                ))}
+              </>
+            }
+          </Container>
+        </Grid>
+        <Grid item sm={3} sx={{ paddingTop: "35px" }}>
+            <Typography variant="h6" component="h6" align="center">
+              Teachers & students
+            </Typography>
+           <PlayerTree items={[...parents, ...students, player]}  />          
+        </Grid>
+      </Grid>
+      
+    </Layout>
+  );
 }
 
 export default PlayerTemplate
@@ -136,12 +192,33 @@ export const pageQuery = graphql`
   query PlayerBySlug(
     $slug: String!
     $parentsOfCurrent: [String]
+    $studentsOfCurrent: [String]
   ) {
     contentfulPlayer(slug: { eq: $slug }) {
+      id
       slug
       name
       associatedStyles
+      styles {
+        name
+        slug
+        colour {
+          value
+        }
+      }
       chineseName
+      otherNames
+      socialMediaProfiles
+      className
+      generation
+      gallery {
+        title
+        filename
+        url
+        width
+        height
+      }
+      videos
       birthYear
       deathYear
       mainImage {
@@ -157,45 +234,90 @@ export const pageQuery = graphql`
         raw
       }
       wikipediaUrl
+      websites
+      references
+      links
       parents {
+        id
         name
         slug
       }
       students {
+        id
         name
         slug
       }
     }
     parents: allContentfulPlayer(filter: { slug: { in: $parentsOfCurrent }}) {
       nodes {
+        id
         name
         slug
-        # mainImage {
-        #   gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
-        #   resize(height: 630, width: 1200) {
-        #     src
-        #   }
-        # }
-        # chineseName
-        # birthYear
-        # deathYear
+        mainImage {
+          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 128)
+          resize(height: 130) {
+            src
+          }
+        }
+        chineseName
+        className
+        generation
+        birthYear
+        deathYear
+        styles {
+          name
+          slug
+          colour {
+            value
+          }
+        }
+        parents {
+          id
+          name
+          slug
+        }
+        students {
+          id
+          name
+          slug
+        }
       }
     }
-    # students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
-    #   nodes {
-    #     name
-    #     slug
-    #     mainImage {
-    #       gatsbyImage(layout: FULL_WIDTH, placeholder: BLURRED, width: 1280)
-    #       resize(height: 630, width: 1200) {
-    #         src
-    #       }
-    #     }
-    #     chineseName
-    #     birthYear
-    #     deathYear
-    #   }
-    # }
+    students: allContentfulPlayer(filter: { slug: { in: $studentsOfCurrent }}) {
+      nodes {
+        id
+        name
+        slug
+        mainImage {
+          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 128)
+          resize(height: 130) {
+            src
+          }
+        }
+        chineseName
+        className
+        generation
+        birthYear
+        deathYear
+        styles {
+          name
+          slug
+          colour {
+            value
+          }
+        }
+        parents {
+          id
+          name
+          slug
+        }
+        students {
+          id
+          name
+          slug
+        }
+      }
+    }
     # previous: contentfulPlayer(slug: { eq: $previousPlayerSlug }) {
     #   slug
     #   name

@@ -3,6 +3,9 @@ require("dotenv").config({
 });
 
 module.exports = {
+  flags: {
+    FUNCTIONS: true
+  },
   siteMetadata: {
     title: "Taijitree",
     description: "The biggest taiji family tree",
